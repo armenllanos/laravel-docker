@@ -14,6 +14,10 @@
     {
       "name": "wallet",
       "description": ""
+    },
+    {
+      "name": "user",
+      "description": ""
     }
   ],
   "schemes": [
@@ -257,6 +261,88 @@
           }
         }
       }
+    },
+    "/api/user": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user info",
+        "description": "",
+        "operationId": "getUSer",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "400": {
+            "description": "bad request error"
+          },
+          "404": {
+            "description": "Cant find users"
+          }
+        }
+      }
+    },
+    "/api/user/{user_id}/": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Gets specific user info",
+        "description": "",
+        "operationId": "getUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "type": "string",
+            "required": true,
+            "description": "Id of the user to get information"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user_id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request error"
+          },
+          "404": {
+            "description": "a wallet with the specified ID was not found."
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -283,6 +369,24 @@
         "value_usd": {
           "type": "number",
           "format": "float"
+        }
+      }
+    },
+    "User":  {
+      "type": "object",
+      "required": [
+        "id_user",
+        "email"
+      ],
+      "properties": {
+        "id_user": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
         }
       }
     }
